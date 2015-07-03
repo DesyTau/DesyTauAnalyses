@@ -1664,9 +1664,6 @@ unsigned int NTupleMaker::AddMuons(const edm::Event& iEvent)
 	muon_phi[muon_count] = (*Muons)[i].phi();
 	muon_charge[muon_count] = (*Muons)[i].charge();
 
-
-
-
 	const pat::Muon &lep = (*Muons)[i];
 	muon_miniISO[muon_count]=getPFIsolation(pfcands, dynamic_cast<const reco::Candidate *>(&lep), 0.05, 0.2, 10., false);
 
@@ -1696,6 +1693,7 @@ unsigned int NTupleMaker::AddMuons(const edm::Event& iEvent)
 	muon_isTracker[muon_count] = (*Muons)[i].isTrackerMuon();
 	muon_isPF[muon_count] = (*Muons)[i].isPFMuon();
 	muon_isTight[muon_count] = (*Muons)[i].isTightMuon(primvertex); 
+	muon_isGlobal[muon_count] = (*Muons)[i].isGlobalMuon();
 	muon_isLoose[muon_count] = (*Muons)[i].isLooseMuon();
 	  
 	muon_chargedHadIso[muon_count] = (*Muons)[i].chargedHadronIso();
@@ -1754,7 +1752,7 @@ unsigned int NTupleMaker::AddMuons(const edm::Event& iEvent)
 	
 	bool goodGlb = muon_isGlobal[muon_count] && muon_normChi2[muon_count]  < 3 
 	 && muon_combQ_chi2LocalPosition[muon_count] < 12 && muon_combQ_trkKink[muon_count] < 20;
-	muon_isMedium[muon_count] =  muon_validFraction[muon_count] >= 0.8 && muon_segmentComp[muon_count] >= (goodGlb ? 0.303 : 0.451);
+	muon_isMedium[muon_count] =  muon_isLoose[muon_count] && muon_validFraction[muon_count] > 0.8 && muon_segmentComp[muon_count] > (goodGlb ? 0.303 : 0.451);
 
 
 	muon_count++;
