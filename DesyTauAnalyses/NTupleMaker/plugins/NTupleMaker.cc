@@ -1750,7 +1750,7 @@ unsigned int NTupleMaker::AddMuons(const edm::Event& iEvent)
 	    muon_nTrackerHits[muon_count] = 0;
 	  }
 	
-	bool goodGlb = muon_isGlobal[muon_count] && muon_normChi2[muon_count]  < 3 
+	bool goodGlb = muon_isGlobal[muon_count] && muon_normChi2[muon_count] < 3 && muon_normChi2[muon_count] > 0
 	 && muon_combQ_chi2LocalPosition[muon_count] < 12 && muon_combQ_trkKink[muon_count] < 20;
 	muon_isMedium[muon_count] =  muon_isLoose[muon_count] && muon_validFraction[muon_count] > 0.8 && muon_segmentComp[muon_count] > (goodGlb ? 0.303 : 0.451);
 
