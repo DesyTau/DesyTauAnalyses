@@ -1724,16 +1724,19 @@ unsigned int NTupleMaker::AddMuons(const edm::Event& iEvent)
 	muon_segmentComp[muon_count] = (*Muons)[i].segmentCompatibility();
 	muon_validFraction[muon_count] = 0;
 
-
 	if(innertrack.isNonnull())
 	  {
-	    TransientTrack TTrack = TTrackBuilder->build(innertrack);
-	    TrajectoryStateClosestToPoint TTrackState = TTrack.trajectoryStateClosestToPoint(GlobalPoint(pv_position.x(), pv_position.y(), pv_position.z()));
+	    //	    TransientTrack TTrack = TTrackBuilder->build(innertrack);
+	    //	    TrajectoryStateClosestToPoint TTrackState = TTrack.trajectoryStateClosestToPoint(GlobalPoint(pv_position.x(), pv_position.y(), pv_position.z()));
 	    muon_innerTrack[muon_count] = true;
-	    muon_dxy[muon_count]    = TTrackState.perigeeParameters().transverseImpactParameter();
-	    muon_dxyerr[muon_count] = TTrackState.perigeeError().transverseImpactParameterError();
-	    muon_dz[muon_count]     = TTrackState.perigeeParameters().longitudinalImpactParameter();
-	    muon_dzerr[muon_count]  = TTrackState.perigeeError().longitudinalImpactParameterError();
+	    //	    muon_dxy[muon_count]    = TTrackState.perigeeParameters().transverseImpactParameter();
+	    //	    muon_dxyerr[muon_count] = TTrackState.perigeeError().transverseImpactParameterError();
+	    //	    muon_dz[muon_count]     = TTrackState.perigeeParameters().longitudinalImpactParameter();
+	    //	    muon_dzerr[muon_count]  = TTrackState.perigeeError().longitudinalImpactParameterError();
+	    muon_dxy[muon_count]    = innertrack->dxy(pv_position);
+	    muon_dxyerr[muon_count]    = innertrack->dxyError();
+	    muon_dz[muon_count]    = innertrack->dz(pv_position);
+	    muon_dzerr[muon_count]    = innertrack->dzError();
 	    muon_nPixelHits[muon_count] = innertrack->hitPattern().numberOfValidPixelHits();
 	    muon_nTrackerHits[muon_count] = innertrack->hitPattern().trackerLayersWithMeasurement();
 	    muon_validFraction[muon_count] = innertrack->validFraction();
@@ -1744,8 +1747,8 @@ unsigned int NTupleMaker::AddMuons(const edm::Event& iEvent)
 	    muon_innerTrack[muon_count] = false;
 	    muon_dxy[muon_count] = -9999;
 	    muon_dxyerr[muon_count] = -9999;
-	    muon_dxy[muon_count] = -9999;
-	    muon_dxyerr[muon_count] = -9999;
+	    muon_dz[muon_count] = -9999;
+	    muon_dzerr[muon_count] = -9999;
 	    muon_nPixelHits[muon_count] = 0; 
 	    muon_nTrackerHits[muon_count] = 0;
 	  }
