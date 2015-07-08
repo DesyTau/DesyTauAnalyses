@@ -199,6 +199,25 @@ bool electronMvaIdTight(float eta, float mva) {
 
 }
 
+bool puJetIdLoose(float eta, float mva) {
+
+  float absEta = fabs(eta);
+  bool id = false;
+
+  if (eta<2.5) 
+    id = mva>-0.63;
+  else if (eta<2.75)
+    id = mva>-0.60;
+  else if (eta<3.0)
+    id = mva>-0.55;
+  else if (eta<5.2)
+    id = mva>-0.45;
+
+  return id;
+
+
+}
+
 const float electronMass = 0;
 const float muonMass = 0.10565837;
 const float pionMass = 0.1396;
@@ -243,16 +262,21 @@ int main(int argc, char * argv[]) {
   const float dZetaCut       = cfg.get<float>("dZetaCut");
   const bool oppositeSign    = cfg.get<bool>("oppositeSign");
 
-  const bool applyTriggerMatch = cfg.get<bool>("ApplyTriggerMatch");
+  const float deltaRTrigMatch = cfg.get<float>("DRTrigMatch");
   const bool isIsoR03 = cfg.get<bool>("IsIsoR03");
   
   const float jetEtaCut = cfg.get<float>("JetEtaCut");
   const float jetPtLowCut = cfg.get<float>("JetPtLowCut");
   const float jetPtHighCut = cfg.get<float>("JetPtHighCut");
   const float dRJetLeptonCut = cfg.get<float>("dRJetLeptonCut");
+  const bool applyJetPfId = cfg.get<bool>("ApplyJetPfId");
+  const bool applyJetPuId = cfg.get<bool>("ApplyJetPuId");
 
   const float bJetEtaCut = cfg.get<float>("bJetEtaCut");
   const float btagCut = cfg.get<float>("btagCut");
+
+  // check overlap
+  const bool checkOverlap = cfg.get<bool>("CheckOverlap");
 
   // **** end of configuration
 
@@ -517,6 +541,25 @@ int main(int argc, char * argv[]) {
   int selEvents = 0;
   int nFiles = 0;
   
+  vector<int> runList; runList.clear();
+  vector<int> eventList; eventList.clear();
+
+  int nonOverlap = 0;
+
+  std::ifstream fileEvents("overlap.txt");
+  int Run, Event, Lumi;
+  if (checkOverlap) {
+    std::cout << "Non-overlapping events ->" << std::endl;
+    while (fileEvents >> Run >> Event >> Lumi) {
+      runList.push_back(Run);
+      eventList.push_back(Event);
+      std::cout << Run << ":" << Event << std::endl;
+    }
+    std::cout << std::endl;
+  }
+  std::ofstream fileOutput("overlap.out");
+
+
   for (int iF=0; iF<nTotalFiles; ++iF) {
 
     std::string filen;
@@ -553,7 +596,6 @@ int main(int argc, char * argv[]) {
     
       analysisTree.GetEntry(iEntry);
       nEvents++;
-
       
       if (nEvents%10000==0) 
 	cout << "      processed " << nEvents << " events" << endl; 
@@ -561,6 +603,22 @@ int main(int argc, char * argv[]) {
       run = int(analysisTree.event_run);
       lumi = int(analysisTree.event_luminosityblock);
       evt = int(analysisTree.event_nr);
+
+      bool overlapEvent = true;
+      for (unsigned int iEvent=0; iEvent<runList.size(); ++iEvent) {
+	if (runList.at(iEvent)==run&&eventList.at(iEvent)==evt) {
+	  overlapEvent = false;
+	  
+	}
+      }
+
+      if (overlapEvent&&checkOverlap) continue;
+      nonOverlap++;
+
+      if (checkOverlap) {
+	fileOutput << std::endl;
+	fileOutput << "Run = " << run << "   Event = " << evt << std::endl;
+      }
 
       // weights
       mcweight = 0;
@@ -588,6 +646,9 @@ int main(int argc, char * argv[]) {
 		       analysisTree.primvertex_y*analysisTree.primvertex_y);
       if (dVertex>dVertexCut) continue;
 
+      if (checkOverlap)
+	fileOutput << "Vertex cuts are passed " << std::endl;
+
 
       //                         HLT_Mu23_Ele12                     ||      HLT_Mu8_Ele23       
       //      bool trigAccept = (analysisTree.hltriggerresults_second[5]==1)||(analysisTree.hltriggerresults_second[6]==1);
@@ -595,13 +656,24 @@ int main(int argc, char * argv[]) {
       
       // electron selection
       vector<int> electrons; electrons.clear();
+      if (checkOverlap)
+	fileOutput << "# electrons = " << analysisTree.electron_count << std::endl;
       for (unsigned int ie = 0; ie<analysisTree.electron_count; ++ie) {
+	bool electronMvaId = electronMvaIdTight(analysisTree.electron_superclusterEta[ie],
+						analysisTree.electron_mva_id_nontrigPhys14[ie]);
+	if (checkOverlap)
+	  fileOutput << "  " << ie 
+		     << " pt = " << analysisTree.electron_pt[ie] 
+		     << " eta = " << analysisTree.electron_eta[ie]
+		     << " dxy = " << analysisTree.electron_dxy[ie]
+		     << " dz  = " << analysisTree.electron_dz[ie]
+		     << " passConv = " << analysisTree.electron_pass_conversion[ie]
+		     << " nmisshits = " << int(analysisTree.electron_nmissinginnerhits[ie])
+		     << " mvaTight = " << electronMvaId << std::endl;
 	if (analysisTree.electron_pt[ie]<ptElectronLowCut) continue;
 	if (fabs(analysisTree.electron_eta[ie])>etaElectronCut) continue;
 	if (fabs(analysisTree.electron_dxy[ie])>dxyElectronCut) continue;
 	if (fabs(analysisTree.electron_dz[ie])>dzElectronCut) continue;
-	bool electronMvaId = electronMvaIdTight(analysisTree.electron_superclusterEta[ie],
-						analysisTree.electron_mva_id_nontrigPhys14[ie]);
 	if (!electronMvaId&&applyElectronId) continue;
 	if (!analysisTree.electron_pass_conversion[ie]&&applyElectronId) continue;
 	if (analysisTree.electron_nmissinginnerhits[ie]!=0&&applyElectronId) continue;
@@ -609,14 +681,40 @@ int main(int argc, char * argv[]) {
       }
 
       // muon selection
+      if (checkOverlap)
+	fileOutput << "# muons = " << analysisTree.muon_count << std::endl;
       vector<int> muons; muons.clear();
       for (unsigned int im = 0; im<analysisTree.muon_count; ++im) {
+	bool isGoodGlobal = analysisTree.muon_isGlobal[im] && analysisTree.muon_normChi2[im]<3 
+	  && analysisTree.muon_combQ_chi2LocalPosition[im]<12 && analysisTree.muon_combQ_trkKink[im]<20;
+	bool isMedium = analysisTree.muon_isLoose[im] && analysisTree.muon_validFraction[im]>0.8 
+	  && analysisTree.muon_segmentComp[im] > (isGoodGlobal ? 0.303 : 0.451);
+	if (checkOverlap)
+	  fileOutput << "  " << im 
+		     << " pt = " << analysisTree.muon_pt[im] 
+		     << " eta = " << analysisTree.muon_eta[im]
+		     << " dxy = " << analysisTree.muon_dxy[im]
+		     << " dz  = " << analysisTree.muon_dz[im]
+		     << " medium = " << isMedium 
+		     << " goodGlobal = " << isGoodGlobal 
+		     << " looseMuon = " << analysisTree.muon_isLoose[im]
+		     << " isGlobal = " << analysisTree.muon_isGlobal[im]
+		     << " normChi2 = " << analysisTree.muon_normChi2[im]
+		     << " chi2LocalPos = " << analysisTree.muon_combQ_chi2LocalPosition[im]
+		     << " trkKink = " << analysisTree.muon_combQ_trkKink[im]
+		     << " validFraction = " << analysisTree.muon_validFraction[im] 
+		     << " segmentComp = " << analysisTree.muon_segmentComp[im] << std::endl;
 	if (analysisTree.muon_pt[im]<ptMuonLowCut) continue;
 	if (fabs(analysisTree.muon_eta[im])>etaMuonCut) continue;
 	if (fabs(analysisTree.muon_dxy[im])>dxyMuonCut) continue;
 	if (fabs(analysisTree.muon_dz[im])>dzMuonCut) continue;
-	if (applyMuonId && !analysisTree.muon_isMedium[im]) continue;
+	if (applyMuonId && !isMedium) continue;
 	muons.push_back(im);
+      }
+
+      if (checkOverlap) {
+	fileOutput << "# selected electrons = " << electrons.size() << std::endl;
+	fileOutput << "# selected muons     = " << muons.size() << std::endl;
       }
 
       if (electrons.size()==0) continue;
@@ -650,18 +748,20 @@ int main(int argc, char * argv[]) {
 	  if (analysisTree.trigobject_filters[iT][3]) { // Mu23 Leg
 	    float dRtrig = deltaR(analysisTree.muon_eta[mIndex],analysisTree.muon_phi[mIndex],
 				  analysisTree.trigobject_eta[iT],analysisTree.trigobject_phi[iT]);
-	    if (dRtrig<0.3) {
+	    if (dRtrig<deltaRTrigMatch) {
 	      isMu23 = true;
 	    }
 	  }
 	  if (analysisTree.trigobject_filters[iT][4]) { // Mu8 Leg
 	    float dRtrig = deltaR(analysisTree.muon_eta[mIndex],analysisTree.muon_phi[mIndex],
 				  analysisTree.trigobject_eta[iT],analysisTree.trigobject_phi[iT]);
-	    if (dRtrig<0.3) {
+	    if (dRtrig<deltaRTrigMatch) {
 	      isMu8 = true;
 	    }
 	  }
 	}
+	if (checkOverlap)
+	  fileOutput << "Muon " << im << " -> isMu23 = " << isMu23 << " ; isMu8 = " << isMu23 << std::endl;
 
 	if ((!isMu23) && (!isMu8)) continue;
 
@@ -672,6 +772,9 @@ int main(int argc, char * argv[]) {
 	  float dR = deltaR(analysisTree.electron_eta[eIndex],analysisTree.electron_phi[eIndex],
 			    analysisTree.muon_eta[mIndex],analysisTree.muon_phi[mIndex]);
 
+	  if (checkOverlap)
+	    fileOutput << "dR(mu,e) = " << dR << std::endl;
+
 	  if (dR<dRleptonsCut) continue;
 
 	  bool isEle23 = false;
@@ -681,7 +784,7 @@ int main(int argc, char * argv[]) {
 	    if (analysisTree.trigobject_filters[iT][9]) { // Ele23 Leg
 	      float dRtrig = deltaR(analysisTree.electron_eta[eIndex],analysisTree.electron_phi[eIndex],
 				    analysisTree.trigobject_eta[iT],analysisTree.trigobject_phi[iT]);
-	      if (dRtrig<0.3) {
+	      if (dRtrig<deltaRTrigMatch) {
 		isEle23 = true;
 	      }
 	    }
@@ -691,11 +794,14 @@ int main(int argc, char * argv[]) {
 	    if (analysisTree.trigobject_filters[iT][8]) { // Ele12 Leg
 	      float dRtrig = deltaR(analysisTree.electron_eta[eIndex],analysisTree.electron_phi[eIndex],
 				    analysisTree.trigobject_eta[iT],analysisTree.trigobject_phi[iT]);
-	      if (dRtrig<0.3) {
+	      if (dRtrig<deltaRTrigMatch) {
 		isEle12 = true;
 	      }
 	    }
 	  }
+
+	  if (checkOverlap)
+	    fileOutput << "Electron " << ie << " -> isEle23 = " << isEle23 << " ; isEle12 = " << isEle12 << std::endl;
 
 	  bool trigMatch = (isMu23&&isEle12) || (isMu8&&isEle23);
 
@@ -711,7 +817,8 @@ int main(int argc, char * argv[]) {
               isKinematicMatch = true;
           }
 	  if (!isKinematicMatch) continue;
-
+	  if (checkOverlap)
+	    fileOutput << " pair is taken " << std::endl;
 
 	  float neutralHadIsoEle = analysisTree.electron_neutralHadIso[eIndex];
 	  float photonIsoEle = analysisTree.electron_photonIso[eIndex];
@@ -870,7 +977,7 @@ int main(int argc, char * argv[]) {
                            eta_2,phi_2);
         if (dR2<dRJetLeptonCut) continue;
 
-	// jetId
+	// pf jet Id
 	float energy = analysisTree.pfjet_e[jet];
         float chf = analysisTree.pfjet_chargedhadronicenergy[jet]/energy;
         float nhf = analysisTree.pfjet_neutralhadronicenergy[jet]/energy;
@@ -879,7 +986,10 @@ int main(int argc, char * argv[]) {
         float chm = analysisTree.pfjet_chargedmulti[jet];
         float npr = analysisTree.pfjet_chargedmulti[jet] + analysisTree.pfjet_neutralmulti[jet];
 	bool isPFJetId = (npr>1 && phf<0.99 && nhf<0.99) && (absJetEta>2.4 || (elf<0.99 && chf>0 && chm>0));
-	if (!isPFJetId) continue;
+	if (applyJetPfId&&!isPFJetId) continue;
+
+	// pu jet Id
+	if (applyJetPuId&&!puJetIdLoose(analysisTree.pfjet_eta[jet],analysisTree.pfjet_pu_jet_full_mva[jet])) continue;
 
 	jetspt20.push_back(jet);
 
