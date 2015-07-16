@@ -6,11 +6,20 @@
 /////////////////////////////////////////////////////////////
 
 #include <iostream>
+#include <utility>
+#include <algorithm>
 
 #include "TFile.h"
 #include "TChain.h"
 
 #include "DesyTauAnalyses/NTupleMaker/interface/Phys14Tree.h"
+
+struct sort_second {
+    bool operator()(const std::pair<int,int> &left, const std::pair<int,int> &right) {
+        return left.second < right.second;
+    }
+};
+
 
 const float MuMass = 0.105658367;
 
@@ -142,9 +151,19 @@ int main(int argc, char * argv[]) {
 
   std::cout<<"Starting loop.."<<std::endl;
   std::cout<<"Ntries = "<<phys14->GetEntries()<<std::endl;  
-  
-  while(phys14->GetEntry(-1) > 0)
-    cout<<"Muon pt = "<<*pt_1<<"GeV"<<std::endl;
 
+  std::vector<std::pair<int, int> > entry;
+  while(phys14->GetEntry(-1) > 0)
+    entry.push_back(std::make_pair(phys14->LoadedEntryId(), *evt));
+
+  std::sort(entry.begin(), entry.end(), sort_second());
+  
+  for(int i = 0; i<phys14->GetEntries(); i++){
+    phys14->GetEntry(entry[i].first);
+
+    
+    cout<<"IEvent "<<*evt<<": phi_1 = "<<*phi_1<<"; mt_1 = "<<*mt_1<<"; phi_2 = "<<*phi_2<<"; mt_2 = "<<*mt_2<<std::endl;
+    
+  }
   return 0;
 }
