@@ -248,7 +248,8 @@ public :
   virtual void     ReadReset();
   virtual Long64_t GetEntries();
   virtual Long64_t LoadTree(Long64_t entry);
-  virtual Int_t    GetEntry(Long64_t entry);
+  virtual Long64_t GetEntry(Long64_t entry);
+  virtual Long64_t LoadedEntryId();
   virtual void     Show(Long64_t entry = -1);
   virtual Int_t    Cut(Long64_t entry);
 

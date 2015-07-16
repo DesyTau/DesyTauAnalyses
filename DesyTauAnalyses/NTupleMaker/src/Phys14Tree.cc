@@ -184,11 +184,12 @@ Long64_t Phys14Tree::LoadTree(Long64_t entry){
   
   if (fChain->GetTreeNumber() != fCurrent)
     fCurrent = fChain->GetTreeNumber();
-  
+
+  ientry = entry;
   return centry;
 }
 
-Int_t Phys14Tree::GetEntry(Long64_t entry){
+Long64_t Phys14Tree::GetEntry(Long64_t entry){
   // Read contents of entry.
   // Sequential reading if entry < 0
   
@@ -205,6 +206,11 @@ Int_t Phys14Tree::GetEntry(Long64_t entry){
 
   return fChain->GetEntry(entry);
 }
+
+Long64_t Phys14Tree::LoadedEntryId(){
+  return ientry;
+}
+    
 
 void Phys14Tree::Show(Long64_t entry){
   // Print contents of entry.
