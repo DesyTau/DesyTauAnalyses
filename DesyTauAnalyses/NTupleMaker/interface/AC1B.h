@@ -1,8 +1,8 @@
 //////////////////////////////////////////////////////////
 // This class has been automatically generated on
-// Sat Jun 20 02:19:26 2015 by ROOT version 5.34/18
+// Mon Jul 20 22:32:58 2015 by ROOT version 5.34/18
 // from TTree AC1B/AC1B
-// found on file: /nfs/dust/cms/user/rasp/ntuples/MC_PHYS14/VBF_HToTauTau_M-125_13TeV-powheg-pythia6/VBF_HToTauTau_M-125_13TeV-powheg-pythia6_1.root
+// found on file: /nfs/dust/cms/user/rasp/ntuples/PHYS14/VBF_HToTauTau_M-125_13TeV-powheg-pythia6/VBF_HToTauTau_M-125_13TeV-powheg-pythia6_0.root
 //////////////////////////////////////////////////////////
 
 #ifndef AC1B_h
@@ -14,12 +14,13 @@
 
 // Header file for the classes stored in the TTree if any.
 #include <vector>
-#include <map>
 #include <utility>
 
 // Fixed size dimensions of array or collections stored in the TTree if any.
 const Int_t kMaxhltriggerresults = 11;
 const Int_t kMaxhltriggerprescales = 11;
+
+using namespace std;
 
 class AC1B {
 public :
@@ -184,56 +185,56 @@ public :
    Float_t         electron_mva_id_nontrigPhys14[100];   //[electron_count]
    Bool_t          electron_pass_conversion[100];   //[electron_count]
    UInt_t          tau_count;
-   Float_t         tau_e[100];   //[tau_count]
-   Float_t         tau_px[100];   //[tau_count]
-   Float_t         tau_py[100];   //[tau_count]
-   Float_t         tau_pz[100];   //[tau_count]
-   Float_t         tau_mass[100];   //[tau_count]
-   Float_t         tau_eta[100];   //[tau_count]
-   Float_t         tau_phi[100];   //[tau_count]
-   Float_t         tau_pt[100];   //[tau_count]
-   Float_t         tau_vertexx[100];   //[tau_count]
-   Float_t         tau_vertexy[100];   //[tau_count]
-   Float_t         tau_vertexz[100];   //[tau_count]
-   Float_t         tau_dxy[100];   //[tau_count]
-   Float_t         tau_dz[100];   //[tau_count]
-   Float_t         tau_ip3d[100];   //[tau_count]
-   Float_t         tau_ip3dSig[100];   //[tau_count]
-   Float_t         tau_charge[100];   //[tau_count]
-   Float_t         tau_genjet_px[100];   //[tau_count]
-   Float_t         tau_genjet_py[100];   //[tau_count]
-   Float_t         tau_genjet_pz[100];   //[tau_count]
-   Float_t         tau_genjet_e[100];   //[tau_count]
-   Float_t         tau_decayModeFinding[100];   //[tau_count]
-   Float_t         tau_decayModeFindingNewDMs[100];   //[tau_count]
-   Float_t         tau_byCombinedIsolationDeltaBetaCorrRaw3Hits[100];   //[tau_count]
-   Float_t         tau_byLooseCombinedIsolationDeltaBetaCorr3Hits[100];   //[tau_count]
-   Float_t         tau_byMediumCombinedIsolationDeltaBetaCorr3Hits[100];   //[tau_count]
-   Float_t         tau_byTightCombinedIsolationDeltaBetaCorr3Hits[100];   //[tau_count]
-   Float_t         tau_chargedIsoPtSum[100];   //[tau_count]
-   Float_t         tau_neutralIsoPtSum[100];   //[tau_count]
-   Float_t         tau_puCorrPtSum[100];   //[tau_count]
-   Float_t         tau_againstMuonLoose3[100];   //[tau_count]
-   Float_t         tau_againstMuonTight3[100];   //[tau_count]
-   Float_t         tau_againstElectronVLooseMVA5[100];   //[tau_count]
-   Float_t         tau_againstElectronVTightMVA5[100];   //[tau_count]
-   Float_t         tau_againstElectronLooseMVA5[100];   //[tau_count]
-   Float_t         tau_againstElectronMediumMVA5[100];   //[tau_count]
-   Float_t         tau_againstElectronTightMVA5[100];   //[tau_count]
-   UInt_t          tau_ntracks_pt05[100];   //[tau_count]
-   UInt_t          tau_ntracks_pt08[100];   //[tau_count]
-   UInt_t          tau_ntracks_pt1[100];   //[tau_count]
-   Bool_t          tau_L1trigger_match[100];   //[tau_count]
-   UInt_t          tau_signalChargedHadrCands_size[100];   //[tau_count]
-   UInt_t          tau_signalNeutralHadrCands_size[100];   //[tau_count]
-   UInt_t          tau_signalGammaCands_size[100];   //[tau_count]
-   UInt_t          tau_isolationChargedHadrCands_size[100];   //[tau_count]
-   UInt_t          tau_isolationNeutralHadrCands_size[100];   //[tau_count]
-   UInt_t          tau_isolationGammaCands_size[100];   //[tau_count]
-   Char_t          tau_genDecayMode_name[100];   //[tau_count]
-   Int_t           tau_genDecayMode[100];   //[tau_count]
-   Char_t          tau_decayMode_name[100];   //[tau_count]
-   Int_t           tau_decayMode[100];   //[tau_count]
+   Float_t         tau_e[6];   //[tau_count]
+   Float_t         tau_px[6];   //[tau_count]
+   Float_t         tau_py[6];   //[tau_count]
+   Float_t         tau_pz[6];   //[tau_count]
+   Float_t         tau_mass[6];   //[tau_count]
+   Float_t         tau_eta[6];   //[tau_count]
+   Float_t         tau_phi[6];   //[tau_count]
+   Float_t         tau_pt[6];   //[tau_count]
+   Float_t         tau_vertexx[6];   //[tau_count]
+   Float_t         tau_vertexy[6];   //[tau_count]
+   Float_t         tau_vertexz[6];   //[tau_count]
+   Float_t         tau_dxy[6];   //[tau_count]
+   Float_t         tau_dz[6];   //[tau_count]
+   Float_t         tau_ip3d[6];   //[tau_count]
+   Float_t         tau_ip3dSig[6];   //[tau_count]
+   Float_t         tau_charge[6];   //[tau_count]
+   Float_t         tau_genjet_px[6];   //[tau_count]
+   Float_t         tau_genjet_py[6];   //[tau_count]
+   Float_t         tau_genjet_pz[6];   //[tau_count]
+   Float_t         tau_genjet_e[6];   //[tau_count]
+   Float_t         tau_decayModeFinding[6];   //[tau_count]
+   Float_t         tau_decayModeFindingNewDMs[6];   //[tau_count]
+   Float_t         tau_byCombinedIsolationDeltaBetaCorrRaw3Hits[6];   //[tau_count]
+   Float_t         tau_byLooseCombinedIsolationDeltaBetaCorr3Hits[6];   //[tau_count]
+   Float_t         tau_byMediumCombinedIsolationDeltaBetaCorr3Hits[6];   //[tau_count]
+   Float_t         tau_byTightCombinedIsolationDeltaBetaCorr3Hits[6];   //[tau_count]
+   Float_t         tau_chargedIsoPtSum[6];   //[tau_count]
+   Float_t         tau_neutralIsoPtSum[6];   //[tau_count]
+   Float_t         tau_puCorrPtSum[6];   //[tau_count]
+   Float_t         tau_againstMuonLoose3[6];   //[tau_count]
+   Float_t         tau_againstMuonTight3[6];   //[tau_count]
+   Float_t         tau_againstElectronVLooseMVA5[6];   //[tau_count]
+   Float_t         tau_againstElectronVTightMVA5[6];   //[tau_count]
+   Float_t         tau_againstElectronLooseMVA5[6];   //[tau_count]
+   Float_t         tau_againstElectronMediumMVA5[6];   //[tau_count]
+   Float_t         tau_againstElectronTightMVA5[6];   //[tau_count]
+   UInt_t          tau_ntracks_pt05[6];   //[tau_count]
+   UInt_t          tau_ntracks_pt08[6];   //[tau_count]
+   UInt_t          tau_ntracks_pt1[6];   //[tau_count]
+   Bool_t          tau_L1trigger_match[6];   //[tau_count]
+   UInt_t          tau_signalChargedHadrCands_size[6];   //[tau_count]
+   UInt_t          tau_signalNeutralHadrCands_size[6];   //[tau_count]
+   UInt_t          tau_signalGammaCands_size[6];   //[tau_count]
+   UInt_t          tau_isolationChargedHadrCands_size[6];   //[tau_count]
+   UInt_t          tau_isolationNeutralHadrCands_size[6];   //[tau_count]
+   UInt_t          tau_isolationGammaCands_size[6];   //[tau_count]
+   Char_t          tau_genDecayMode_name[6];   //[tau_count]
+   Int_t           tau_genDecayMode[6];   //[tau_count]
+   Char_t          tau_decayMode_name[6];   //[tau_count]
+   Int_t           tau_decayMode[6];   //[tau_count]
    Float_t         pfmet_ex;
    Float_t         pfmet_ey;
    Float_t         pfmet_ez;
@@ -264,58 +265,63 @@ public :
    Int_t           numpileupinteractionsplus;
    Float_t         numtruepileupinteractions;
    UInt_t          gentau_count;
-   Float_t         gentau_e[100];   //[gentau_count]
-   Float_t         gentau_px[100];   //[gentau_count]
-   Float_t         gentau_py[100];   //[gentau_count]
-   Float_t         gentau_pz[100];   //[gentau_count]
-   Float_t         gentau_visible_e[100];   //[gentau_count]
-   Float_t         gentau_visible_px[100];   //[gentau_count]
-   Float_t         gentau_visible_py[100];   //[gentau_count]
-   Float_t         gentau_visible_pz[100];   //[gentau_count]
-   Float_t         gentau_visible_pt[100];   //[gentau_count]
-   Float_t         gentau_visible_eta[100];   //[gentau_count]
-   Float_t         gentau_visible_phi[100];   //[gentau_count]
-   Float_t         gentau_visible_mass[100];   //[gentau_count]
-   Int_t           gentau_decayMode[100];   //[gentau_count]
-   Char_t          gentau_decayMode_name[100];   //[gentau_count]
-   UChar_t         gentau_mother[100];   //[gentau_count]
+   Float_t         gentau_e[14];   //[gentau_count]
+   Float_t         gentau_px[14];   //[gentau_count]
+   Float_t         gentau_py[14];   //[gentau_count]
+   Float_t         gentau_pz[14];   //[gentau_count]
+   Float_t         gentau_visible_e[14];   //[gentau_count]
+   Float_t         gentau_visible_px[14];   //[gentau_count]
+   Float_t         gentau_visible_py[14];   //[gentau_count]
+   Float_t         gentau_visible_pz[14];   //[gentau_count]
+   Float_t         gentau_visible_pt[14];   //[gentau_count]
+   Float_t         gentau_visible_eta[14];   //[gentau_count]
+   Float_t         gentau_visible_phi[14];   //[gentau_count]
+   Float_t         gentau_visible_mass[14];   //[gentau_count]
+   Int_t           gentau_decayMode[14];   //[gentau_count]
+   Char_t          gentau_decayMode_name[14];   //[gentau_count]
+   UChar_t         gentau_mother[14];   //[gentau_count]
    UInt_t          genparticles_count;
-   Float_t         genparticles_e[100];   //[genparticles_count]
-   Float_t         genparticles_px[100];   //[genparticles_count]
-   Float_t         genparticles_py[100];   //[genparticles_count]
-   Float_t         genparticles_pz[100];   //[genparticles_count]
-   Float_t         genparticles_vx[100];   //[genparticles_count]
-   Float_t         genparticles_vy[100];   //[genparticles_count]
-   Float_t         genparticles_vz[100];   //[genparticles_count]
-   Int_t           genparticles_pdgid[100];   //[genparticles_count]
-   Int_t           genparticles_status[100];   //[genparticles_count]
-   UInt_t          genparticles_info[100];   //[genparticles_count]
-   UChar_t         genparticles_mother[100];   //[genparticles_count]
+   Float_t         genparticles_e[15];   //[genparticles_count]
+   Float_t         genparticles_px[15];   //[genparticles_count]
+   Float_t         genparticles_py[15];   //[genparticles_count]
+   Float_t         genparticles_pz[15];   //[genparticles_count]
+   Float_t         genparticles_vx[15];   //[genparticles_count]
+   Float_t         genparticles_vy[15];   //[genparticles_count]
+   Float_t         genparticles_vz[15];   //[genparticles_count]
+   Int_t           genparticles_pdgid[15];   //[genparticles_count]
+   Int_t           genparticles_status[15];   //[genparticles_count]
+   UInt_t          genparticles_info[15];   //[genparticles_count]
+   UChar_t         genparticles_mother[15];   //[genparticles_count]
    UInt_t          trigobject_count;
-   Float_t         trigobject_px[100];   //[trigobject_count]
-   Float_t         trigobject_py[100];   //[trigobject_count]
-   Float_t         trigobject_pz[100];   //[trigobject_count]
-   Float_t         trigobject_pt[100];   //[trigobject_count]
-   Float_t         trigobject_eta[100];   //[trigobject_count]
-   Float_t         trigobject_phi[100];   //[trigobject_count]
-   Bool_t          trigobject_filters[100][50];   //[trigobject_count]
-   std::vector<std::string>  *run_hltnames;
-   std::vector<std::string>  *run_hltfilters;
-   std::vector<std::string>  *run_hltmufilters;
-   std::vector<std::string>  *run_hltelectronfilters;
-   std::vector<std::string>  *run_hlttaufilters;
-   std::vector<std::string>  *run_hltphotonfilters;
-   std::vector<std::string>  *run_hltjetfilters;
-   std::vector<std::string>  *run_floattaudiscriminators;
-   std::vector<std::string>  *run_binarytaudiscriminators;
-   std::vector<std::string>  *run_btagdiscriminators;
+   Float_t         trigobject_px[19];   //[trigobject_count]
+   Float_t         trigobject_py[19];   //[trigobject_count]
+   Float_t         trigobject_pz[19];   //[trigobject_count]
+   Float_t         trigobject_pt[19];   //[trigobject_count]
+   Float_t         trigobject_eta[19];   //[trigobject_count]
+   Float_t         trigobject_phi[19];   //[trigobject_count]
+   Bool_t          trigobject_filters[19][50];   //[trigobject_count]
+   Bool_t          trigobject_isMuon[19];   //[trigobject_count]
+   Bool_t          trigobject_isElectron[19];   //[trigobject_count]
+   Bool_t          trigobject_isTau[19];   //[trigobject_count]
+   Bool_t          trigobject_isJet[19];   //[trigobject_count]
+   Bool_t          trigobject_isMET[19];   //[trigobject_count]
+   vector<string>  *run_hltnames;
+   vector<string>  *run_hltfilters;
+   vector<string>  *run_hltmufilters;
+   vector<string>  *run_hltelectronfilters;
+   vector<string>  *run_hlttaufilters;
+   vector<string>  *run_hltphotonfilters;
+   vector<string>  *run_hltjetfilters;
+   vector<string>  *run_floattaudiscriminators;
+   vector<string>  *run_binarytaudiscriminators;
+   vector<string>  *run_btagdiscriminators;
    Int_t           hltriggerresults_;
-   std::string          hltriggerresults_first[kMaxhltriggerresults];
+   string          hltriggerresults_first[kMaxhltriggerresults];
    Int_t           hltriggerresults_second[kMaxhltriggerresults];   //[hltriggerresults_]
    Int_t           hltriggerprescales_;
-   std::string          hltriggerprescales_first[kMaxhltriggerprescales];
+   string          hltriggerprescales_first[kMaxhltriggerprescales];
    Int_t           hltriggerprescales_second[kMaxhltriggerprescales];   //[hltriggerprescales_]
-   std::vector<std::string>  *hltriggerresultsV;
+   vector<string>  *hltriggerresultsV;
 
    // List of branches
    TBranch        *b_errors;   //!
@@ -590,6 +596,11 @@ public :
    TBranch        *b_trigobject_eta;   //!
    TBranch        *b_trigobject_phi;   //!
    TBranch        *b_trigobject_filters;   //!
+   TBranch        *b_trigobject_isMuon;   //!
+   TBranch        *b_trigobject_isElectron;   //!
+   TBranch        *b_trigobject_isTau;   //!
+   TBranch        *b_trigobject_isJet;   //!
+   TBranch        *b_trigobject_isMET;   //!
    TBranch        *b_run_hltnames;   //!
    TBranch        *b_run_hltfilters;   //!
    TBranch        *b_run_hltmufilters;   //!
@@ -628,11 +639,11 @@ AC1B::AC1B(TTree *tree) : fChain(0)
 // if parameter tree is not specified (or zero), connect the file
 // used to generate this class and read the Tree.
    if (tree == 0) {
-      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("/nfs/dust/cms/user/rasp/ntuples/MC_PHYS14/VBF_HToTauTau_M-125_13TeV-powheg-pythia6/VBF_HToTauTau_M-125_13TeV-powheg-pythia6_1.root");
+      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("/nfs/dust/cms/user/rasp/ntuples/PHYS14/VBF_HToTauTau_M-125_13TeV-powheg-pythia6/VBF_HToTauTau_M-125_13TeV-powheg-pythia6_0.root");
       if (!f || !f->IsOpen()) {
-         f = new TFile("/nfs/dust/cms/user/rasp/ntuples/MC_PHYS14/VBF_HToTauTau_M-125_13TeV-powheg-pythia6/VBF_HToTauTau_M-125_13TeV-powheg-pythia6_1.root");
+         f = new TFile("/nfs/dust/cms/user/rasp/ntuples/PHYS14/VBF_HToTauTau_M-125_13TeV-powheg-pythia6/VBF_HToTauTau_M-125_13TeV-powheg-pythia6_0.root");
       }
-      TDirectory * dir = (TDirectory*)f->Get("/nfs/dust/cms/user/rasp/ntuples/MC_PHYS14/VBF_HToTauTau_M-125_13TeV-powheg-pythia6/VBF_HToTauTau_M-125_13TeV-powheg-pythia6_1.root:/makeroottree");
+      TDirectory * dir = (TDirectory*)f->Get("/nfs/dust/cms/user/rasp/ntuples/PHYS14/VBF_HToTauTau_M-125_13TeV-powheg-pythia6/VBF_HToTauTau_M-125_13TeV-powheg-pythia6_0.root:/makeroottree");
       dir->GetObject("AC1B",tree);
 
    }
@@ -767,27 +778,27 @@ void AC1B::Init(TTree *tree)
    fChain->SetBranchAddress("muon_isLoose", muon_isLoose, &b_muon_isLoose);
    fChain->SetBranchAddress("muon_isMedium", muon_isMedium, &b_muon_isMedium);
    fChain->SetBranchAddress("pfjet_count", &pfjet_count, &b_pfjet_count);
-   fChain->SetBranchAddress("pfjet_e", &pfjet_e, &b_pfjet_e);
-   fChain->SetBranchAddress("pfjet_px", &pfjet_px, &b_pfjet_px);
-   fChain->SetBranchAddress("pfjet_py", &pfjet_py, &b_pfjet_py);
-   fChain->SetBranchAddress("pfjet_pz", &pfjet_pz, &b_pfjet_pz);
-   fChain->SetBranchAddress("pfjet_pt", &pfjet_pt, &b_pfjet_pt);
-   fChain->SetBranchAddress("pfjet_eta", &pfjet_eta, &b_pfjet_eta);
-   fChain->SetBranchAddress("pfjet_phi", &pfjet_phi, &b_pfjet_phi);
-   fChain->SetBranchAddress("pfjet_neutralhadronicenergy", &pfjet_neutralhadronicenergy, &b_pfjet_neutralhadronicenergy);
-   fChain->SetBranchAddress("pfjet_chargedhadronicenergy", &pfjet_chargedhadronicenergy, &b_pfjet_chargedhadronicenergy);
-   fChain->SetBranchAddress("pfjet_neutralemenergy", &pfjet_neutralemenergy, &b_pfjet_neutralemenergy);
-   fChain->SetBranchAddress("pfjet_chargedemenergy", &pfjet_chargedemenergy, &b_pfjet_chargedemenergy);
-   fChain->SetBranchAddress("pfjet_chargedmulti", &pfjet_chargedmulti, &b_pfjet_chargedmulti);
-   fChain->SetBranchAddress("pfjet_neutralmulti", &pfjet_neutralmulti, &b_pfjet_neutralmulti);
-   fChain->SetBranchAddress("pfjet_chargedhadronmulti", &pfjet_chargedhadronmulti, &b_pfjet_chargedhadronmulti);
-   fChain->SetBranchAddress("pfjet_energycorr", &pfjet_energycorr, &b_pfjet_energycorr);
-   fChain->SetBranchAddress("pfjet_energycorr_l1fastjet", &pfjet_energycorr_l1fastjet, &b_pfjet_energycorr_l1fastjet);
-   fChain->SetBranchAddress("pfjet_energycorr_l2relative", &pfjet_energycorr_l2relative, &b_pfjet_energycorr_l2relative);
-   fChain->SetBranchAddress("pfjet_energycorr_l3absolute", &pfjet_energycorr_l3absolute, &b_pfjet_energycorr_l3absolute);
-   fChain->SetBranchAddress("pfjet_pu_jet_full_mva", &pfjet_pu_jet_full_mva, &b_pfjet_pu_jet_full_mva);
-   fChain->SetBranchAddress("pfjet_flavour", &pfjet_flavour, &b_pfjet_flavour);
-   fChain->SetBranchAddress("pfjet_btag", &pfjet_btag, &b_pfjet_btag);
+   fChain->SetBranchAddress("pfjet_e", pfjet_e, &b_pfjet_e);
+   fChain->SetBranchAddress("pfjet_px", pfjet_px, &b_pfjet_px);
+   fChain->SetBranchAddress("pfjet_py", pfjet_py, &b_pfjet_py);
+   fChain->SetBranchAddress("pfjet_pz", pfjet_pz, &b_pfjet_pz);
+   fChain->SetBranchAddress("pfjet_pt", pfjet_pt, &b_pfjet_pt);
+   fChain->SetBranchAddress("pfjet_eta", pfjet_eta, &b_pfjet_eta);
+   fChain->SetBranchAddress("pfjet_phi", pfjet_phi, &b_pfjet_phi);
+   fChain->SetBranchAddress("pfjet_neutralhadronicenergy", pfjet_neutralhadronicenergy, &b_pfjet_neutralhadronicenergy);
+   fChain->SetBranchAddress("pfjet_chargedhadronicenergy", pfjet_chargedhadronicenergy, &b_pfjet_chargedhadronicenergy);
+   fChain->SetBranchAddress("pfjet_neutralemenergy", pfjet_neutralemenergy, &b_pfjet_neutralemenergy);
+   fChain->SetBranchAddress("pfjet_chargedemenergy", pfjet_chargedemenergy, &b_pfjet_chargedemenergy);
+   fChain->SetBranchAddress("pfjet_chargedmulti", pfjet_chargedmulti, &b_pfjet_chargedmulti);
+   fChain->SetBranchAddress("pfjet_neutralmulti", pfjet_neutralmulti, &b_pfjet_neutralmulti);
+   fChain->SetBranchAddress("pfjet_chargedhadronmulti", pfjet_chargedhadronmulti, &b_pfjet_chargedhadronmulti);
+   fChain->SetBranchAddress("pfjet_energycorr", pfjet_energycorr, &b_pfjet_energycorr);
+   fChain->SetBranchAddress("pfjet_energycorr_l1fastjet", pfjet_energycorr_l1fastjet, &b_pfjet_energycorr_l1fastjet);
+   fChain->SetBranchAddress("pfjet_energycorr_l2relative", pfjet_energycorr_l2relative, &b_pfjet_energycorr_l2relative);
+   fChain->SetBranchAddress("pfjet_energycorr_l3absolute", pfjet_energycorr_l3absolute, &b_pfjet_energycorr_l3absolute);
+   fChain->SetBranchAddress("pfjet_pu_jet_full_mva", pfjet_pu_jet_full_mva, &b_pfjet_pu_jet_full_mva);
+   fChain->SetBranchAddress("pfjet_flavour", pfjet_flavour, &b_pfjet_flavour);
+   fChain->SetBranchAddress("pfjet_btag", pfjet_btag, &b_pfjet_btag);
    fChain->SetBranchAddress("electron_count", &electron_count, &b_electron_count);
    fChain->SetBranchAddress("electron_px", electron_px, &b_electron_px);
    fChain->SetBranchAddress("electron_py", electron_py, &b_electron_py);
@@ -970,6 +981,11 @@ void AC1B::Init(TTree *tree)
    fChain->SetBranchAddress("trigobject_eta", trigobject_eta, &b_trigobject_eta);
    fChain->SetBranchAddress("trigobject_phi", trigobject_phi, &b_trigobject_phi);
    fChain->SetBranchAddress("trigobject_filters", trigobject_filters, &b_trigobject_filters);
+   fChain->SetBranchAddress("trigobject_isMuon", trigobject_isMuon, &b_trigobject_isMuon);
+   fChain->SetBranchAddress("trigobject_isElectron", trigobject_isElectron, &b_trigobject_isElectron);
+   fChain->SetBranchAddress("trigobject_isTau", trigobject_isTau, &b_trigobject_isTau);
+   fChain->SetBranchAddress("trigobject_isJet", trigobject_isJet, &b_trigobject_isJet);
+   fChain->SetBranchAddress("trigobject_isMET", trigobject_isMET, &b_trigobject_isMET);
    fChain->SetBranchAddress("run_hltnames", &run_hltnames, &b_run_hltnames);
    fChain->SetBranchAddress("run_hltfilters", &run_hltfilters, &b_run_hltfilters);
    fChain->SetBranchAddress("run_hltmufilters", &run_hltmufilters, &b_run_hltmufilters);
