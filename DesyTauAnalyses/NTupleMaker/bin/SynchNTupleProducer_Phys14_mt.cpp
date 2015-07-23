@@ -791,7 +791,7 @@ int main(int argc, char * argv[]) {
       // choosing mva met
       unsigned int iMet = 0;
       for (; iMet<analysisTree.mvamet_count; ++iMet) {
-	if ((int)analysisTree.mvamet_channel[iMet]==2) break;
+	if ((int)analysisTree.mvamet_channel[iMet]==3) break;
       }
       
       if (iMet>=analysisTree.mvamet_count){
@@ -866,7 +866,7 @@ int main(int argc, char * argv[]) {
         float elf = analysisTree.pfjet_chargedemenergy[jet]/energy;
         float chm = analysisTree.pfjet_chargedmulti[jet];
         float npr = analysisTree.pfjet_chargedmulti[jet] + analysisTree.pfjet_neutralmulti[jet];
-	bool isPFJetId = (npr>1 && phf<0.99 && nhf<0.99);// && (absJetEta>2.4 || (elf<0.99 && chf>0 && chm>0)); // muon fraction missing
+	bool isPFJetId = (npr>1 && phf<0.99 && nhf<0.99) && (absJetEta>2.4 || (elf<0.99 && chf>0 && chm>0)); // muon fraction missing
 
 	if(debug)
 	  fileOutput<<" jet "<<jet<<": pt="<<analysisTree.pfjet_pt[jet]<<" eta="<<analysisTree.pfjet_eta[jet]
