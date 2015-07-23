@@ -290,12 +290,13 @@ int main(int argc, char * argv[]) {
   // **** end of configuration
 
   // file name and tree name
-  TString rootFileName(argv[1]);
+  TString rootFileName(argv[2]);
   std::ifstream fileList(argv[2]);
   std::ifstream fileList0(argv[2]);
   std::string ntupleName("makeroottree/AC1B");
 
-  rootFileName.ReplaceAll(".conf", ".root");
+  
+  rootFileName += "_et_Sync.root";
   std::cout <<rootFileName <<std::endl;  
 
   // output fileName with histograms
